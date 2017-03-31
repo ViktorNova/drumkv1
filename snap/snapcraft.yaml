@@ -3,10 +3,7 @@ name: drumkv1-stagecraft
 version: 0.8.1.12+git
 summary:   an old-school drum-kit sampler synthesizer with stereo fx.
 description: 
-  - pure stand-alone JACK client with JACK-session, NSM and both JACK MIDI
-    and ALSA MIDI input support
-  - LV2 instrument plugin.
-  http://drumkv1.sourceforge.net/lv2
+  A full-featured MIDI drum sampler
 
 grade: devel          # must be 'stable' to release into candidate/stable channels
 confinement: devmode  # use 'strict' once you have the right plugs and slots
