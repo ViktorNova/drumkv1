@@ -1,0 +1,14 @@
+
+name: drumkv1-stagecraft
+version: 0.8.1.12+git
+summary:   an old-school drum-kit sampler synthesizer with stereo fx.
+description: 
+  A full-featured MIDI drum sampler
+
+grade: devel          # must be 'stable' to release into candidate/stable channels
+confinement: devmode  # use 'strict' once you have the right plugs and slots
+
+parts:
+  my-part:
+    # See 'snapcraft plugins'
+    plugin: nil
