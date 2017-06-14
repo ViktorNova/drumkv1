@@ -1,5 +1,5 @@
 # Process this file with autoconf to produce a configure script.
-AC_INIT(drumkv1, 0.8.1, rncbc@rncbc.org)
+AC_INIT(drumkv1, 0.8.2, rncbc@rncbc.org)
 
 AC_CONFIG_SRCDIR(src/drumkv1.cpp)
 AC_CONFIG_HEADERS(src/config.h)
@@ -9,9 +9,13 @@ AC_CONFIG_FILES(Makefile drumkv1.spec src/src_core.pri src/src_jack.pri src/src_
 AC_CACHE_VAL([ac_cv_build_version], [
    ac_cv_build_version=$(git describe --tags --dirty --abbrev=6 2>/dev/null)
    if test -n "$ac_cv_build_version"; then
-      ac_cv_build_version=$(echo $ac_cv_build_version | sed -r 's/^[[^_]]+_//')
-      ac_cv_build_version=$(echo $ac_cv_build_version | sed -r 's/-g/git./')
-      ac_cv_build_version=$(echo $ac_cv_build_version | sed -r 's/[[_|-]]+/./g')
+      ac_cv_build_version=$(echo $ac_cv_build_version | sed 's/^[[^_]]*[[_v]]//i')
+      ac_cv_build_version=$(echo $ac_cv_build_version | sed 's/-g/git./')
+      ac_cv_build_version=$(echo $ac_cv_build_version | sed 's/[[_|-]]\+/./g')
+      ac_cv_build_version_extra=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+      if test "x$ac_cv_build_version_extra" != "xmaster"; then
+         ac_cv_build_version="$ac_cv_build_version [[$ac_cv_build_version_extra]]"
+      fi
    else
       ac_cv_build_version=$PACKAGE_VERSION
    fi
@@ -221,7 +225,7 @@ AC_CACHE_CHECK([for g++ major version], [ac_cv_gxx_version_major], [
    ac_gxx_version_major=$(($ac_cv_gxx_version_major + 0))
 ])
 ac_gxx_version_major=$ac_cv_gxx_version_major
-if test $ac_gxx_version_major -gt 4 -a $ac_gxx_version_major -lt 6; then
+if test $ac_gxx_version_major -ge 4 -a $ac_gxx_version_major -lt 6; then
    CXXFLAGS="-std=c++11 $CXXFLAGS"
 fi
 

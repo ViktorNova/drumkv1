@@ -132,6 +132,9 @@ public:
 	// MIDI input status update
 	void midiInLedNote(int key, int vel);
 
+	// Direct note-on methods.
+	void directNoteOn(int key);
+
 signals:
 
 	// Emitted signals.
@@ -146,6 +149,9 @@ protected slots:
 	// Internal slot handlers.
 	void currentRowChanged(const QModelIndex&, const QModelIndex&);
 	void doubleClicked(const QModelIndex&);
+
+	// Direct note-off/timeout methods.
+	void directNoteOff();
 
 protected:
 
@@ -176,6 +182,8 @@ private:
 	QPoint m_posDrag;
 
 	drumkv1_sample *m_pDragSample;
+
+	int m_iDirectNoteOn;
 };
 
 

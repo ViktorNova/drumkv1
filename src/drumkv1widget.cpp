@@ -961,6 +961,17 @@ void drumkv1widget::openSample (void)
 }
 
 
+// Sample playback (direct note-on/off).
+void drumkv1widget::playSample (void)
+{
+#ifdef CONFIG_DEBUG
+	qDebug("drumkv1widget::playSample()");
+#endif
+
+	m_ui.Elements->directNoteOn(currentNote());
+}
+
+
 // Sample file reset.
 void drumkv1widget::clearSampleFile (void)
 {
@@ -1332,6 +1343,10 @@ void drumkv1widget::contextMenuRequest ( const QPoint& pos )
 		QIcon(":/images/fileOpen.png"),
 		tr("Open Sample..."), this, SLOT(openSample()));
 	pAction->setEnabled(pDrumkUi != NULL);
+	pAction = menu.addAction(
+		QIcon(":/images/playSample.png"),
+		tr("Play"), this, SLOT(playSample()));
+	pAction->setEnabled(element != NULL);
 	menu.addSeparator();
 	pAction = menu.addAction(
 		tr("Reset"), this, SLOT(resetElement()));

@@ -102,6 +102,9 @@ protected slots:
 	// Sample loader.
 	void loadSample(const QString& sFilename);
 
+	// Sample playback (direct note-on/off).
+	void playSample(void);
+
 	// All element clear.
 	void clearElements();
 
